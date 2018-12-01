@@ -8,9 +8,11 @@
     "antd": "^3.10.9",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-firebaseui": "^3.1.2",
     "react-router-component": "^0.39.1",
     "react-scripts-ts": "3.1.0",
-    "vexdb": "^2.0.3"
+    "vexdb": "^2.0.3",
+    "firebase": "latest"
   },
   "scripts": {
     "start": "react-scripts-ts start",
