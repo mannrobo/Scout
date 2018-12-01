@@ -45,6 +45,11 @@ export default class VexDB extends React.Component<VexDBProps, {}> {
           bordered={true}
           header={this.props.header}
           renderItem={this.props.render}
+          pagination={{
+            position: "both",
+            pageSize: 50,
+            hideOnSinglePage: true
+          }}
         />
       </div>
     );
