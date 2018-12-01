@@ -1,7 +1,10 @@
 import * as React from "react";
+import { Menu, Icon, Affix } from "antd";
+import { Locations, Location, Link } from "react-router-component";
+import EventTeams from "./Teams";
+import EventData from "./Data";
+
 import * as vexdb from "vexdb";
-import VexDB from "../../components/VexDB";
-import { List, Menu, Icon } from "antd";
 import { EventsResponseObject } from "vexdb/out/constants/ResponseObjects";
 
 interface EventProps {
@@ -20,40 +23,43 @@ export default class Event extends React.Component<EventProps, {}> {
   }
 
   render() {
+    let { sku } = this.props;
     return (
       <div>
-        <Menu mode="horizontal" style={{ marginBottom: 16 }} selectedKeys={[]}>
-          <Menu.Item key="teams">
-            <Icon type="team" />
-            Teams
-          </Menu.Item>
-          <Menu.Item key="data">
-            <Icon type="rise" />
-            Event Data
-          </Menu.Item>
-          <Menu.Item key="notes">
-            <Icon type="profile" />
-            Event Notes
-          </Menu.Item>
-        </Menu>
-        <VexDB
-          endpoint="teams"
-          args={{ sku: this.props.sku }}
-          header={
-            <strong style={{ textAlign: "center" }}>
-              {this.state.event.name}
-            </strong>
-          }
-          render={(team: any) => (
-            <List.Item>
-              <List.Item.Meta
-                key={team.number}
-                title={team.team_name}
-                description={<p>{team.number}</p>}
-              />
-            </List.Item>
-          )}
-        />
+        <Affix offsetTop={0}>
+          <div style={{ backgroundColor: "#fff", padding: "0.5em 0" }}>
+            <h2 style={{ marginBottom: 0 }}>{this.state.event.name}</h2>
+          </div>
+          <Menu
+            mode="horizontal"
+            style={{ marginBottom: 16 }}
+            selectedKeys={[location.pathname]}
+          >
+            <Menu.Item key={`/event/${sku}`}>
+              <Link href={`/event/${sku}`}>
+                <Icon type="team" />
+                Teams
+              </Link>
+            </Menu.Item>
+            <Menu.Item key={`/event/${sku}/data`}>
+              <Link href={`/event/${sku}/data`}>
+                <Icon type="rise" />
+                Data
+              </Link>
+            </Menu.Item>
+            <Menu.Item key={`/event/${sku}/notes`}>
+              <Link href={`/event/${sku}/notes`}>
+                <Icon type="profile" />
+                Notes
+              </Link>
+            </Menu.Item>
+          </Menu>
+        </Affix>
+        <Locations contextual>
+          <Location path="/" handler={EventTeams(this.props.sku)} />
+          <Location path="/data" handler={EventData(this.props.sku)} />
+          <Location path="/notes" handler={EventTeams(this.props.sku)} />
+        </Locations>
       </div>
     );
   }
