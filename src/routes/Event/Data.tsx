@@ -14,15 +14,15 @@ function matchIdentifier(round: number, instance: number, matchnum: number) {
   let roundString =
     [
       ,
-      "Practice",
-      "Qualification",
+      "Prac",
+      "Qual",
       "QF",
       "SF",
-      "Final",
-      "Round of 16",
-      ,
-      ,
-      ,
+      "F",
+      "R16",
+      "R32",
+      "R64",
+      "R128",
       ,
       ,
       ,
@@ -32,7 +32,9 @@ function matchIdentifier(round: number, instance: number, matchnum: number) {
       "RR"
     ][round] || round;
 
-  return `${roundString} #${matchnum}${instance != 1 ? `-${instance}` : ""}`;
+  return `${roundString} #${matchnum}${
+    round != 1 && round != 2 ? `-${instance}` : ""
+  }`;
 }
 
 export default (sku: string, division: string) =>
