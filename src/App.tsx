@@ -1,8 +1,10 @@
-import { Layout, List } from "antd";
+import { Layout } from "antd";
 import * as React from "react";
 import "./App.css";
 import Header from "./components/Header";
-import VexDB from "./components/VexDB";
+import { Locations, Location } from "react-router-component";
+import Home from "./routes/Home";
+import Event from "./routes/Event";
 
 const { Content } = Layout;
 
@@ -13,24 +15,10 @@ class App extends React.Component {
         <Header />
         <Layout>
           <Content style={{ margin: "24px 16px 0" }}>
-            <VexDB
-              endpoint="events"
-              args={{
-                region: "South Carolina",
-                status: "current"
-              }}
-              header={
-                <strong style={{ textAlign: "center" }}>
-                  Events Today in South Carolina
-                </strong>
-              }
-              render={(event: any) => (
-                <List.Item key={event.key}>
-                  {event.name} ({event.sku}) -- {event.loc_city},{" "}
-                  {event.loc_region}
-                </List.Item>
-              )}
-            />
+            <Locations>
+              <Location path="/" handler={Home} />
+              <Location path="/event/:sku" handler={Event} />
+            </Locations>
           </Content>
         </Layout>
       </Layout>
