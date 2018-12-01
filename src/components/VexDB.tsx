@@ -35,13 +35,15 @@ export default class VexDB extends React.Component<VexDBProps, {}> {
 
   render() {
     return (
-      <List
-        size="large"
-        dataSource={this.state.data}
-        bordered={true}
-        header={this.props.header}
-        renderItem={this.props.render}
-      />
+      <div style={{ marginBottom: 32 }}>
+        <List
+          size={"default"}
+          dataSource={this.state.data}
+          bordered={true}
+          header={this.props.header}
+          renderItem={this.props.render}
+        />
+      </div>
     );
   }
 }
