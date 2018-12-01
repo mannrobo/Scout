@@ -10,7 +10,32 @@ import {
 import VexDB from "src/components/VexDB";
 import { List, Row, Col } from "antd";
 
-export default (sku: string) =>
+function matchIdentifier(round: number, instance: number, matchnum: number) {
+  let roundString =
+    [
+      ,
+      "Practice",
+      "Qualification",
+      "QF",
+      "SF",
+      "Final",
+      "Round of 16",
+      ,
+      ,
+      ,
+      ,
+      ,
+      ,
+      ,
+      ,
+      ,
+      "RR"
+    ][round] || round;
+
+  return `${roundString} #${matchnum}${instance != 1 ? `-${instance}` : ""}`;
+}
+
+export default (sku: string, division: string) =>
   class EventData extends React.Component {
     state = {
       event: {} as EventsResponseObject
@@ -28,7 +53,7 @@ export default (sku: string) =>
           <Col md={24} lg={12}>
             <VexDB
               endpoint="rankings"
-              args={{ sku }}
+              args={{ sku, division }}
               header={<strong>Rankings</strong>}
               render={(rank: RankingsResponseObject) => (
                 <List.Item>
@@ -41,11 +66,11 @@ export default (sku: string) =>
           <Col md={24} lg={12}>
             <VexDB
               endpoint="matches"
-              args={{ sku }}
+              args={{ sku, division }}
               header={<strong>Matches</strong>}
               render={(match: MatchesResponseObject) => (
                 <List.Item>
-                  {match.round} {match.instance} {match.matchnum}
+                  {matchIdentifier(match.round, match.instance, match.matchnum)}
                 </List.Item>
               )}
             />

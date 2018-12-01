@@ -2,7 +2,7 @@ import * as React from "react";
 import VexDB from "src/components/VexDB";
 import { List } from "antd";
 
-export default (sku: string) =>
+export default (sku: string, divison: string) =>
   class EventTeams extends React.Component {
     render() {
       return (
