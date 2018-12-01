@@ -57,7 +57,7 @@ export default class Event extends React.Component<EventProps, {}> {
                 onChange={divisionSelection =>
                   this.setState({ divisionSelection })
                 }
-                style={{ width: 120, marginTop: 8 }}
+                style={{ width: 180, marginTop: 8 }}
                 defaultValue={
                   this.state.divisionSelection || this.state.event.divisions[0]
                 }
