@@ -17,12 +17,14 @@ export interface VexDBProps {
 
 export default class VexDB extends React.Component<VexDBProps, {}> {
   state = {
-    data: []
+    data: [],
+    loading: true
   };
 
   async updateData() {
     this.setState({
-      data: await vexdb.get(this.props.endpoint as any, this.props.args)
+      data: await vexdb.get(this.props.endpoint as any, this.props.args),
+      loading: false
     });
   }
 
@@ -39,6 +41,7 @@ export default class VexDB extends React.Component<VexDBProps, {}> {
         <List
           size={"default"}
           dataSource={this.state.data}
+          loading={this.state.loading}
           bordered={true}
           header={this.props.header}
           renderItem={this.props.render}
