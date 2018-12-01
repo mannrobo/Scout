@@ -8,7 +8,7 @@ import {
 } from "vexdb/out/constants/ResponseObjects";
 
 import VexDB from "src/components/VexDB";
-import { List, Row, Col } from "antd";
+import { List, Row, Col, Tag } from "antd";
 
 function matchIdentifier(round: number, instance: number, matchnum: number) {
   let roundString =
@@ -59,8 +59,7 @@ export default (sku: string, division: string) =>
               header={<strong>Rankings</strong>}
               render={(rank: RankingsResponseObject) => (
                 <List.Item>
-                  {rank.rank}. {rank.team} ({rank.wins}-{rank.losses}-
-                  {rank.ties})
+                  {rank.rank}. {rank.team} ({rank.wp} / {rank.ap} / {rank.sp})
                 </List.Item>
               )}
             />
@@ -72,7 +71,31 @@ export default (sku: string, division: string) =>
               header={<strong>Matches</strong>}
               render={(match: MatchesResponseObject) => (
                 <List.Item>
-                  {matchIdentifier(match.round, match.instance, match.matchnum)}
+                  <List.Item.Meta
+                    title={matchIdentifier(
+                      match.round,
+                      match.instance,
+                      match.matchnum
+                    )}
+                    description={
+                      <div>
+                        <Tag color="red">
+                          {match.red1} {match.red2}
+                        </Tag>
+                        <Tag color="blue">
+                          {match.blue1} {match.blue2}
+                        </Tag>
+                      </div>
+                    }
+                  />
+                  {[
+                    <h1 key="red" style={{ color: "#f5222d", marginLeft: 6 }}>
+                      {match.redscore}
+                    </h1>,
+                    <h1 key="blue" style={{ color: "#1890ff", marginLeft: 6 }}>
+                      {match.bluescore}
+                    </h1>
+                  ].sort((a, b) => b.props.children - a.props.children)}
                 </List.Item>
               )}
             />
