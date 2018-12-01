@@ -1,20 +1,39 @@
-import * as React from 'react';
-import './App.css';
+import { Layout, List } from "antd";
+import * as React from "react";
+import "./App.css";
+import Header from "./components/Header";
+import VexDB from "./components/VexDB";
 
-import logo from './logo.svg';
+const { Content } = Layout;
 
 class App extends React.Component {
   public render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
+      <Layout id="page">
+        <Header />
+        <Layout>
+          <Content style={{ margin: "24px 16px 0" }}>
+            <VexDB
+              endpoint="events"
+              args={{
+                region: "South Carolina",
+                status: "current"
+              }}
+              header={
+                <strong style={{ textAlign: "center" }}>
+                  Events Today in South Carolina
+                </strong>
+              }
+              render={(event: any) => (
+                <List.Item key={event.key}>
+                  {event.name} ({event.sku}) -- {event.loc_city},{" "}
+                  {event.loc_region}
+                </List.Item>
+              )}
+            />
+          </Content>
+        </Layout>
+      </Layout>
     );
   }
 }
