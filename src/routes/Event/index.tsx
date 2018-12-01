@@ -13,7 +13,9 @@ interface EventProps {
 
 export default class Event extends React.Component<EventProps, {}> {
   state = {
-    event: {} as EventsResponseObject
+    event: {
+      name: ""
+    } as EventsResponseObject
   };
 
   async componentWillMount() {
@@ -28,7 +30,9 @@ export default class Event extends React.Component<EventProps, {}> {
       <div>
         <Affix offsetTop={0}>
           <div style={{ backgroundColor: "#fff", padding: "0.5em 0" }}>
-            <h2 style={{ marginBottom: 0 }}>{this.state.event.name}</h2>
+            <h2 style={{ marginBottom: 0 }}>
+              {this.state.event ? this.state.event.name : ""}
+            </h2>
           </div>
           <Menu
             mode="horizontal"
