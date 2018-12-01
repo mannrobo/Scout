@@ -5,6 +5,18 @@ import Header from "./components/Header";
 import { Locations, Location } from "react-router-component";
 import Home from "./routes/Home";
 import Event from "./routes/Event";
+import * as firebase from "firebase";
+
+// Connect to Firebase
+var config = {
+  apiKey: "AIzaSyAkDVkuP_PFYXRb-xOUxY38bC07IVGR2V8",
+  authDomain: "mannrobo-scout.firebaseapp.com",
+  databaseURL: "https://mannrobo-scout.firebaseio.com",
+  projectId: "mannrobo-scout",
+  storageBucket: "",
+  messagingSenderId: "999577033624"
+};
+firebase.initializeApp(config);
 
 const { Content } = Layout;
 
