@@ -10,11 +10,7 @@ export default () => (
       region: "South Carolina",
       status: "current"
     }}
-    header={
-      <strong style={{ textAlign: "center" }}>
-        Events Today in South Carolina
-      </strong>
-    }
+    header={<strong style={{ textAlign: "center" }}>Events Today</strong>}
     render={(event: any) => (
       <Link href={`/event/${event.sku}`}>
         <List.Item>

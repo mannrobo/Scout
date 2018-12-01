@@ -14,10 +14,10 @@ class App extends React.Component {
       <Layout id="page">
         <Header />
         <Layout>
-          <Content style={{ margin: "24px 16px 0" }}>
+          <Content style={{ margin: "8px 16px 0" }}>
             <Locations>
               <Location path="/" handler={Home} />
-              <Location path="/event/:sku" handler={Event} />
+              <Location path="/event/:sku(/*)" handler={Event} />
             </Locations>
           </Content>
         </Layout>
