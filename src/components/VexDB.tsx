@@ -7,7 +7,7 @@ export interface VexDBProps {
     | "teams"
     | "events"
     | "matches"
-    | "ranking"
+    | "rankings"
     | "season_rankings"
     | "skills";
   args: object;
