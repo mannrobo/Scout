@@ -3,6 +3,7 @@ import { Menu, Icon, Affix, Select } from "antd";
 import { Locations, Location, Link } from "react-router-component";
 import EventTeams from "./Teams";
 import EventData from "./Data";
+import EventNotes from "./Notes";
 
 import * as vexdb from "vexdb";
 import { EventsResponseObject } from "vexdb/out/constants/ResponseObjects";
@@ -104,7 +105,7 @@ export default class Event extends React.Component<EventProps, {}> {
           />
           <Location
             path="/notes"
-            handler={EventTeams(this.props.sku, this.state.divisionSelection)}
+            handler={EventNotes(this.props.sku, this.state.divisionSelection)}
           />
         </Locations>
       </div>

@@ -9,7 +9,8 @@ export interface VexDBProps {
     | "matches"
     | "rankings"
     | "season_rankings"
-    | "skills";
+    | "skills"
+    | "awards";
   args: object;
   header?: React.ReactNode;
   render: React.ReactNode;
