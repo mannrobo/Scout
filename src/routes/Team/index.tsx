@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Menu, Icon, Affix } from "antd";
-import { Route, Link } from "react-router-dom";
+import { /*Route,*/ Link } from "react-router-dom";
 // import EventTeams from "./Teams";
 // import EventData from "./Data";
 // import EventNotes from "./Notes";
