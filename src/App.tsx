@@ -33,21 +33,21 @@ const { Content } = Layout;
 class App extends React.Component {
   public render() {
     return (
-      <Layout id="page">
-        <Header />
-        <Layout>
-          <Content style={{ margin: "8px 16px 0" }}>
-            <Router>
-              <Analytics id="UA-82048274-3">
-                <Route path="/" component={Home} />
-                <Route path="/event/:sku(/*)" component={Event} />
-                <Route path="/team/:number(/*)" component={Team} />
+      <Router>
+        <Analytics id="UA-82048274-3">
+          <Layout id="page">
+            <Header />
+            <Layout>
+              <Content style={{ margin: "8px 16px 0" }}>
+                <Route exact path="/" component={Home} />
+                <Route path="/event/:sku/" component={Event} />
+                <Route path="/team/:number/" component={Team} />
                 <Route path="/login" component={Login} />
-              </Analytics>
-            </Router>
-          </Content>
-        </Layout>
-      </Layout>
+              </Content>
+            </Layout>
+          </Layout>
+        </Analytics>
+      </Router>
     );
   }
 }
