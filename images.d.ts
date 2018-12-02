@@ -6,4 +6,4 @@ declare module "*.gif";
 declare module "*.bmp";
 declare module "*.tiff";
 
-declare module "react-router-component";
+declare module "react-router-ga";

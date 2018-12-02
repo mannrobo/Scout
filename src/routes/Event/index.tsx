@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Menu, Icon, Affix, Select } from "antd";
-import { Locations, Location, Link } from "react-router-component";
 import EventTeams from "./Teams";
 import EventData from "./Data";
 import EventNotes from "./Notes";
+import { Link, Route } from "react-router-dom";
 
 import * as vexdb from "vexdb";
 import { EventsResponseObject } from "vexdb/out/constants/ResponseObjects";
@@ -75,39 +75,38 @@ export default class Event extends React.Component<EventProps, {}> {
             selectedKeys={[location.pathname]}
           >
             <Menu.Item key={`/event/${sku}`}>
-              <Link href={`/event/${sku}`}>
+              <Link to={`/event/${sku}`}>
                 <Icon type="team" />
                 Teams
               </Link>
             </Menu.Item>
             <Menu.Item key={`/event/${sku}/data`}>
-              <Link href={`/event/${sku}/data`}>
+              <Link to={`/event/${sku}/data`}>
                 <Icon type="rise" />
                 Data
               </Link>
             </Menu.Item>
             <Menu.Item key={`/event/${sku}/notes`}>
-              <Link href={`/event/${sku}/notes`}>
+              <Link to={`/event/${sku}/notes`}>
                 <Icon type="profile" />
                 Notes
               </Link>
             </Menu.Item>
           </Menu>
         </Affix>
-        <Locations contextual>
-          <Location
-            path="/"
-            handler={EventTeams(this.props.sku, this.state.divisionSelection)}
-          />
-          <Location
-            path="/data"
-            handler={EventData(this.props.sku, this.state.divisionSelection)}
-          />
-          <Location
-            path="/notes"
-            handler={EventNotes(this.props.sku, this.state.divisionSelection)}
-          />
-        </Locations>
+
+        <Route
+          path="/"
+          component={EventTeams(this.props.sku, this.state.divisionSelection)}
+        />
+        <Route
+          path="/data"
+          component={EventData(this.props.sku, this.state.divisionSelection)}
+        />
+        <Route
+          path="/notes"
+          component={EventNotes(this.props.sku, this.state.divisionSelection)}
+        />
       </div>
     );
   }

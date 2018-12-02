@@ -1,7 +1,7 @@
 import * as React from "react";
 import VexDB from "../components/VexDB";
 import { List } from "antd";
-import { Link } from "react-router-component";
+import { Link } from "react-router-dom";
 
 export default () => (
   <VexDB
@@ -12,7 +12,7 @@ export default () => (
     }}
     header={<strong style={{ textAlign: "center" }}>Events Today</strong>}
     render={(event: any) => (
-      <Link href={`/event/${event.sku}`}>
+      <Link to={`/event/${event.sku}`}>
         <List.Item>
           <List.Item.Meta
             key={event.key}
