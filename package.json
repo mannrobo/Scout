@@ -9,6 +9,7 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-firebaseui": "^3.1.2",
+    "react-input-mask": "^2.0.4",
     "react-router-dom": "^4.3.1",
     "react-router-ga": "^1.0.0",
     "react-scripts-ts": "3.1.0",

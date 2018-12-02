@@ -13,6 +13,7 @@ export interface VexDBProps {
     | "awards";
   args: object;
   header?: React.ReactNode;
+  footer?: React.ReactNode;
   render: React.ReactNode;
 }
 
@@ -44,13 +45,13 @@ export default class VexDB extends React.Component<VexDBProps, {}> {
           dataSource={this.state.data}
           loading={this.state.loading}
           bordered={true}
-          header={this.props.header}
-          renderItem={this.props.render}
           pagination={{
             position: "both",
             pageSize: 50,
             hideOnSinglePage: true
           }}
+          renderItem={this.props.render}
+          {...this.props}
         />
       </div>
     );
