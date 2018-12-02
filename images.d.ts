@@ -7,3 +7,5 @@ declare module "*.bmp";
 declare module "*.tiff";
 
 declare module "react-router-ga";
+declare module "react-router-dom";
+declare module "react-input-mask";
