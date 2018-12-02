@@ -12,7 +12,7 @@ export default () => (
     }}
     header={<strong style={{ textAlign: "center" }}>Events Today</strong>}
     render={(event: any) => (
-      <Link to={`/event/${event.sku}`}>
+      <Link to={`/event/${event.sku}/`}>
         <List.Item>
           <List.Item.Meta
             key={event.key}
