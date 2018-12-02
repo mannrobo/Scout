@@ -8,22 +8,19 @@ import { Link, Route } from "react-router-dom";
 import * as vexdb from "vexdb";
 import { EventsResponseObject } from "vexdb/out/constants/ResponseObjects";
 
-interface EventProps {
-  sku: string;
-}
-
-export default class Event extends React.Component<EventProps, {}> {
+export default class Event extends React.Component<any, {}> {
   state = {
     event: { name: "" } as EventsResponseObject,
     divisionSelection:
-      localStorage.getItem(`divisionChoice-${this.props.sku}`) || ""
+      localStorage.getItem(`divisionChoice-${this.props.match.params.sku}`) ||
+      ""
   };
 
   async componentWillMount() {
     this.setState(
       {
         event: (await vexdb.get("events" as any, {
-          sku: this.props.sku
+          sku: this.props.match.params.sku
         }))[0]
       },
       () => {
@@ -38,13 +35,13 @@ export default class Event extends React.Component<EventProps, {}> {
 
   componentDidUpdate() {
     localStorage.setItem(
-      `divisionChoice-${this.props.sku}`,
+      `divisionChoice-${this.props.match.params.sku}`,
       this.state.divisionSelection
     );
   }
 
   render() {
-    let { sku } = this.props;
+    let { sku } = this.props.match.params;
     return (
       <div>
         <Affix offsetTop={0}>
@@ -74,8 +71,8 @@ export default class Event extends React.Component<EventProps, {}> {
             style={{ marginBottom: 16 }}
             selectedKeys={[location.pathname]}
           >
-            <Menu.Item key={`/event/${sku}`}>
-              <Link to={`/event/${sku}`}>
+            <Menu.Item key={`/event/${sku}/`}>
+              <Link to={`/event/${sku}/`}>
                 <Icon type="team" />
                 Teams
               </Link>
@@ -96,16 +93,28 @@ export default class Event extends React.Component<EventProps, {}> {
         </Affix>
 
         <Route
-          path="/"
-          component={EventTeams(this.props.sku, this.state.divisionSelection)}
+          exact
+          path={`/event/${sku}/`}
+          component={EventTeams(
+            this.props.match.params.sku,
+            this.state.divisionSelection
+          )}
         />
         <Route
-          path="/data"
-          component={EventData(this.props.sku, this.state.divisionSelection)}
+          exact
+          path={`/event/${sku}/data`}
+          component={EventData(
+            this.props.match.params.sku,
+            this.state.divisionSelection
+          )}
         />
         <Route
-          path="/notes"
-          component={EventNotes(this.props.sku, this.state.divisionSelection)}
+          exact
+          path={`/event/${sku}/notes`}
+          component={EventNotes(
+            this.props.match.params.sku,
+            this.state.divisionSelection
+          )}
         />
       </div>
     );
