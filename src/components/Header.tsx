@@ -3,16 +3,33 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import * as firebase from "firebase";
 
+window["firebase"] = firebase;
+
 export default class Header extends React.Component {
   state = {
-    user: null as null | firebase.User
+    user: null as null | firebase.User,
+    userData: null as any
   };
 
   componentWillMount() {
-    firebase.auth().onAuthStateChanged(user => this.setState({ user }));
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user });
+      if (user) {
+        firebase
+          .firestore()
+          .collection("users")
+          .doc(user.uid)
+          .onSnapshot(doc => {
+            this.setState({
+              userData: doc.data()
+            });
+          });
+      }
+    });
   }
 
   render() {
+    console.log(this.state);
     return (
       <Layout.Header
         id="header"
@@ -41,24 +58,46 @@ export default class Header extends React.Component {
               title={
                 <span className="submenu-title-wrapper">
                   <Icon type="user" />
-                  {this.state.user.displayName}
+                  {(this.state.userData || {}).name ||
+                    this.state.user.displayName ||
+                    "Me"}
                 </span>
               }
             >
               <Menu.Item key="user:profile">
-                <Link to="/profile">My Profile</Link>
+                <Link to={`/profile/${this.state.user.uid}`}>My Profile</Link>
+              </Menu.Item>
+              <Menu.Item key="user:signout">
+                <a
+                  onClick={e => {
+                    e.preventDefault();
+                    firebase.auth().signOut();
+                  }}
+                >
+                  Sign Out
+                </a>
               </Menu.Item>
             </Menu.SubMenu>
             <Menu.SubMenu
               title={
                 <span className="submenu-title-wrapper">
                   <Icon type="team" />
-                  My Team
+                  {this.state.userData && this.state.userData.team
+                    ? this.state.userData.team
+                    : "My Team"}
                 </span>
               }
             >
               <Menu.Item key="team:profile">
-                <Link to="/profile">Team Profile</Link>
+                <Link
+                  to={
+                    this.state.userData && this.state.userData.team
+                      ? `/team/${this.state.userData.team}`
+                      : `/team/`
+                  }
+                >
+                  Team Profile
+                </Link>
               </Menu.Item>
             </Menu.SubMenu>
           </Menu>
