@@ -9,10 +9,12 @@ import Analytics from "react-router-ga";
 
 // Routes
 import AsyncComponent from "./components/Async";
+
 const Home = AsyncComponent(() => import("./routes/Home"));
 const Event = AsyncComponent(() => import("./routes/Event"));
 const Team = AsyncComponent(() => import("./routes/Team"));
 const Login = AsyncComponent(() => import("./routes/Login"));
+const Profile = AsyncComponent(() => import("./routes/Profile"));
 
 // Connect to Firebase
 var config = {
@@ -43,6 +45,7 @@ class App extends React.Component {
                 <Route path="/event/:sku/" component={Event} />
                 <Route path="/team/:number/" component={Team} />
                 <Route path="/login" component={Login} />
+                <Route path="/profile/:uid" component={Profile} />
               </Content>
             </Layout>
           </Layout>

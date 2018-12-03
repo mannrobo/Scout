@@ -34,3 +34,12 @@ html {
 #page .logo {
   height: 40px;
 }
+
+.fixed-actions {
+  display: block;
+  text-align: right;
+}
+
+.fixed-actions > * {
+  margin: 0 8px;
+}
