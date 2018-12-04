@@ -15,6 +15,7 @@ const Event = AsyncComponent(() => import("./routes/Event"));
 const Team = AsyncComponent(() => import("./routes/Team"));
 const Login = AsyncComponent(() => import("./routes/Login"));
 const Profile = AsyncComponent(() => import("./routes/Profile"));
+const Invite = AsyncComponent(() => import("./routes/Invite"));
 
 // Connect to Firebase
 var config = {
@@ -46,6 +47,7 @@ class App extends React.Component {
                 <Route path="/team/:number/" component={Team} />
                 <Route path="/login" component={Login} />
                 <Route path="/profile/:uid" component={Profile} />
+                <Route path="/i/:code" component={Invite} />
               </Content>
             </Layout>
           </Layout>
