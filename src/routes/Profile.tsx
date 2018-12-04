@@ -102,7 +102,7 @@ export default class ProfilePage extends React.Component<any> {
                 onClick={() =>
                   (navigator as any).share({
                     title: this.state.user.data.name,
-                    text: "Scout -- Social Scouting for VRC",
+                    text: `${this.state.user.data.name} on Scout`,
                     url: location.href
                   })
                 }
