@@ -20,6 +20,7 @@ export default (props: any) => (
             maxWidth: 360,
             marginTop: 8
           }}
+          pattern="[0-9]*"
           placeholder="Or enter an event SKU"
           suffix={<Icon type="arrow-right" />}
           onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) =>
