@@ -5,6 +5,8 @@ import EventData from "./Data";
 import EventNotes from "./Notes";
 import { Link, Route } from "react-router-dom";
 
+import FourOhFour from "../../components/FourOhFour";
+
 import * as vexdb from "vexdb";
 import { EventsResponseObject } from "vexdb/out/constants/ResponseObjects";
 
@@ -24,7 +26,7 @@ export default class Event extends React.Component<any, {}> {
         }))[0]
       },
       () => {
-        if (!this.state.divisionSelection) {
+        if (!this.state.divisionSelection && this.state.event) {
           this.setState({
             divisionSelection: this.state.event.divisions[0]
           });
@@ -42,6 +44,9 @@ export default class Event extends React.Component<any, {}> {
 
   render() {
     let { sku } = this.props.match.params;
+
+    if (!this.state.event) return <FourOhFour />;
+
     return (
       <div>
         <Affix offsetTop={0}>

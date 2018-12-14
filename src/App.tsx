@@ -5,10 +5,12 @@ import Header from "./components/Header";
 import * as firebase from "firebase";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Switch } from "react-router";
 import Analytics from "react-router-ga";
 
 // Routes
 import AsyncComponent from "./components/Async";
+import FourOhFour from "./components/FourOhFour";
 
 const Home = AsyncComponent(() => import("./routes/Home"));
 const Event = AsyncComponent(() => import("./routes/Event"));
@@ -42,12 +44,15 @@ class App extends React.Component {
             <Header />
             <Layout>
               <Content style={{ margin: "8px 16px 0" }}>
-                <Route exact path="/" component={Home} />
-                <Route path="/event/:sku/" component={Event} />
-                <Route path="/team/:number/" component={Team} />
-                <Route path="/login" component={Login} />
-                <Route path="/profile/:uid" component={Profile} />
-                <Route path="/i/:code" component={Invite} />
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/event/:sku/" component={Event} />
+                  <Route path="/team/:number/" component={Team} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/profile/:uid" component={Profile} />
+                  <Route path="/invite/:code" component={Invite} />
+                  <Route component={FourOhFour} />
+                </Switch>
               </Content>
             </Layout>
           </Layout>

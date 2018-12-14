@@ -2,6 +2,7 @@ import * as React from "react";
 import * as firebase from "firebase";
 import { Spin, Select, Button, Affix, Input, List, Avatar } from "antd";
 import { Link } from "react-router-dom";
+import FourOhFour from "src/components/FourOhFour";
 
 export default class ProfilePage extends React.Component<any> {
   state = {
@@ -79,6 +80,9 @@ export default class ProfilePage extends React.Component<any> {
           style={{ margin: "32px auto", textAlign: "center", display: "block" }}
         />
       );
+
+    if (!this.state.user.data) return <FourOhFour />;
+
     return (
       <div style={{ maxWidth: "760px", margin: "0 auto", padding: "16px" }}>
         <Affix offsetTop={10}>

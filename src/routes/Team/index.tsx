@@ -10,6 +10,8 @@ import * as firebase from "firebase";
 import * as vexdb from "vexdb";
 import { TeamsResponseObject } from "vexdb/out/constants/ResponseObjects";
 import Manage from "./Manage";
+import Data from "./Data";
+import FourOhFour from "src/components/FourOhFour";
 
 export default class Team extends React.Component<any, {}> {
   state = {
@@ -44,6 +46,8 @@ export default class Team extends React.Component<any, {}> {
       this.state.teamProfile &&
       this.state.user &&
       this.state.teamProfile.members.includes(this.state.user.uid);
+
+    if (!this.state.team) return <FourOhFour />;
 
     return (
       <div>
@@ -81,6 +85,7 @@ export default class Team extends React.Component<any, {}> {
           </Menu>
         </Affix>
         <Route exact path={`/team/:number/`} component={TeamPage} />
+        <Route exact path={`/team/:number/data`} component={Data} />
         {canManage ? (
           <Route exact path={`/team/:number/manage`} component={Manage} />
         ) : null}
