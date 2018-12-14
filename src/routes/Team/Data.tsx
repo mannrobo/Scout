@@ -1,126 +1,110 @@
 import * as React from "react";
-// import VexDB from "src/components/VexDB";
 import * as vexdb from "vexdb";
 import {
   EventsResponseObject,
   RankingsResponseObject,
-  MatchesResponseObject,
   AwardsResponseObject
 } from "vexdb/out/constants/ResponseObjects";
 
+// import VexDB from "src/components/VexDB";
+import { Row, Col, List, Select } from "antd";
 import VexDB from "src/components/VexDB";
-import { List, Row, Col, Tag } from "antd";
+import { Link } from "react-router-dom";
 
-function matchIdentifier(round: number, instance: number, matchnum: number) {
-  let roundString =
-    [
-      ,
-      "Prac",
-      "Qual",
-      "QF",
-      "SF",
-      "F",
-      "R16",
-      "R32",
-      "R64",
-      "R128",
-      ,
-      ,
-      ,
-      ,
-      ,
-      ,
-      "RR"
-    ][round] || round;
+function eventPerformanceSummary(
+  event: EventsResponseObject & {
+    rank: RankingsResponseObject;
+    awards: AwardsResponseObject[];
+  }
+) {
+  let rank,
+    awards = "";
 
-  return `${roundString} #${matchnum}${
-    round != 1 && round != 2 ? `-${instance}` : ""
-  }`;
+  if (event.rank) {
+    rank = `Ranked ${event.rank.rank}. `;
+  } else {
+    rank = "Unranked. ";
+  }
+
+  awards =
+    event.awards.length > 0
+      ? `${event.awards.map(a => a.name.split(" (")[0]).join(", ")}`
+      : "";
+
+  return rank + awards;
 }
 
-export default (sku: string, division: string) =>
-  class EventData extends React.Component {
-    state = {
-      event: {} as EventsResponseObject
-    };
-
-    async componentWillMount() {
-      this.setState({
-        event: (await vexdb.get("events" as any, { sku: sku }))[0]
-      });
-    }
-
-    render() {
-      return (
-        <div>
-          <Row gutter={16}>
-            <Col md={24} lg={12}>
-              <VexDB
-                endpoint="rankings"
-                args={{ sku, division }}
-                header={<strong>Rankings</strong>}
-                render={(rank: RankingsResponseObject) => (
-                  <List.Item>
-                    {rank.rank}. {rank.team} ({rank.wp} / {rank.ap} / {rank.sp})
-                  </List.Item>
-                )}
-              />
-              <VexDB
-                endpoint="awards"
-                args={{ sku }}
-                header={<strong>Awards</strong>}
-                render={(award: AwardsResponseObject) => (
-                  <List.Item>
-                    <List.Item.Meta
-                      title={award.name}
-                      description={award.team}
-                    />
-                    {award.qualifies.join("<br />")}
-                  </List.Item>
-                )}
-              />
-            </Col>
-            <Col md={24} lg={12}>
-              <VexDB
-                endpoint="matches"
-                args={{ sku, division }}
-                header={<strong>Matches</strong>}
-                render={(match: MatchesResponseObject) => (
-                  <List.Item>
-                    <List.Item.Meta
-                      title={matchIdentifier(
-                        match.round,
-                        match.instance,
-                        match.matchnum
-                      )}
-                      description={
-                        <div>
-                          <Tag color="red">
-                            {match.red1} {match.red2}
-                          </Tag>
-                          <Tag color="blue">
-                            {match.blue1} {match.blue2}
-                          </Tag>
-                        </div>
-                      }
-                    />
-                    {[
-                      <h1 key="red" style={{ color: "#f5222d", marginLeft: 6 }}>
-                        {match.redscore}
-                      </h1>,
-                      <h1
-                        key="blue"
-                        style={{ color: "#1890ff", marginLeft: 6 }}
-                      >
-                        {match.bluescore}
-                      </h1>
-                    ].sort((a, b) => b.props.children - a.props.children)}
-                  </List.Item>
-                )}
-              />
-            </Col>
-          </Row>
-        </div>
-      );
-    }
+export default class EventData extends React.Component<any> {
+  state = {
+    event: {} as EventsResponseObject,
+    season: "current"
   };
+
+  async componentWillMount() {}
+
+  augmentEvent = async (item: EventsResponseObject) => {
+    return {
+      ...item,
+      rank: (await vexdb.get("rankings", {
+        team: this.props.match.params.number,
+        sku: item.sku
+      }))[0],
+      awards: await vexdb.get("awards", {
+        team: this.props.match.params.number,
+        sku: item.sku
+      })
+    };
+  };
+
+  render() {
+    return (
+      <div>
+        <Row gutter={16}>
+          <Col md={24} lg={12}>
+            <VexDB
+              header={<strong>Events</strong>}
+              footer={
+                <Select
+                  style={{ width: "50%" }}
+                  defaultValue="current"
+                  value={this.state.season}
+                  onChange={season => {
+                    this.setState({ season });
+                  }}
+                >
+                  <Select.Option value="current">Turning Point</Select.Option>
+                  <Select.Option value="In The Zone">In The Zone</Select.Option>
+                  <Select.Option value="Starstruck">Starstruck</Select.Option>
+                  <Select.Option value="Nothing But Net">
+                    Nothing But Net
+                  </Select.Option>
+                  <Select.Option value="Skyrise">Skyrise</Select.Option>
+                </Select>
+              }
+              endpoint={"events"}
+              args={{
+                team: this.props.match.params.number,
+                season: this.state.season
+              }}
+              augment={this.augmentEvent}
+              render={(
+                event: EventsResponseObject & {
+                  rank: RankingsResponseObject;
+                  awards: AwardsResponseObject[];
+                }
+              ) => (
+                <List.Item>
+                  <List.Item.Meta
+                    title={<Link to={`/event/${event.sku}`}>{event.name}</Link>}
+                    description={eventPerformanceSummary(event)}
+                  />
+                  {event.rank.wins}-{event.rank.losses}-{event.rank.ties}
+                </List.Item>
+              )}
+            />
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+}
