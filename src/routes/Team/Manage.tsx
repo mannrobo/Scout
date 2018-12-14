@@ -11,6 +11,7 @@ import {
   Input,
   Form
 } from "antd";
+import * as copy from "copy-to-clipboard";
 import * as firebase from "firebase";
 
 export default class TeamManage extends React.Component<any> {
@@ -61,14 +62,13 @@ export default class TeamManage extends React.Component<any> {
       .onSnapshot(snap =>
         this.setState({
           invite: snap.exists
-            ? `https://scout.mannrobo.org/i/${(snap.data() as any).code}`
+            ? `https://scout.mannrobo.org/invite/${(snap.data() as any).code}`
             : ""
         })
       );
   }
 
   render() {
-    console.log(this.state);
     return (
       <Row gutter={16}>
         <Col sm={24} lg={8} style={{ marginBottom: 16 }}>
@@ -101,14 +101,6 @@ export default class TeamManage extends React.Component<any> {
             )}
             footer={
               <div>
-                <p style={{ textAlign: "right" }}>
-                  <Popconfirm
-                    title="This will invalidate the old link"
-                    okText="Generate"
-                  >
-                    <Button>Generate New Invite Link</Button>
-                  </Popconfirm>
-                </p>
                 <Input
                   value={this.state.invite}
                   suffix={
@@ -120,12 +112,21 @@ export default class TeamManage extends React.Component<any> {
                         position: "relative",
                         left: 12
                       }}
+                      onClick={() => copy(this.state.invite)}
                     >
                       <Icon type="copy" />
                       Copy
                     </Button>
                   }
                 />
+                <p style={{ textAlign: "right", marginTop: 12 }}>
+                  <Popconfirm
+                    title="This will invalidate the old link"
+                    okText="Generate"
+                  >
+                    <Button>Generate New Invite Link</Button>
+                  </Popconfirm>
+                </p>
               </div>
             }
           />

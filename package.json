@@ -13,7 +13,8 @@
     "react-router-dom": "^4.3.1",
     "react-router-ga": "^1.0.0",
     "react-scripts-ts": "3.1.0",
-    "vexdb": "^2.0.3"
+    "vexdb": "^2.0.3",
+    "copy-to-clipboard": "^3.0.8"
   },
   "scripts": {
     "dev": "react-scripts-ts start",
