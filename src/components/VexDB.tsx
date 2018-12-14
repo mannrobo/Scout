@@ -1,6 +1,7 @@
 import * as vexdb from "vexdb";
 import { List } from "antd";
 import * as React from "react";
+import { ResponseObject } from "vexdb/out/constants/ResponseObjects";
 
 export interface VexDBProps {
   endpoint:
@@ -14,6 +15,7 @@ export interface VexDBProps {
   args: object;
   header?: React.ReactNode;
   footer?: React.ReactNode;
+  augment?: (item: ResponseObject) => Promise<any>;
   render: React.ReactNode;
 }
 
@@ -24,8 +26,15 @@ export default class VexDB extends React.Component<VexDBProps, {}> {
   };
 
   async updateData() {
+    let data = await vexdb.get(this.props.endpoint as any, this.props.args);
+
+    // Augment Data
+    if (this.props.augment !== undefined) {
+      data = await Promise.all(data.map(this.props.augment));
+    }
+
     this.setState({
-      data: await vexdb.get(this.props.endpoint as any, this.props.args),
+      data,
       loading: false
     });
   }
@@ -33,8 +42,14 @@ export default class VexDB extends React.Component<VexDBProps, {}> {
   componentWillMount() {
     this.updateData();
   }
-  componentWillReceiveProps() {
-    this.updateData();
+
+  componentDidUpdate(prevProps: VexDBProps) {
+    if (
+      prevProps.endpoint != this.props.endpoint ||
+      Object.is(this.props.args, prevProps.args)
+    ) {
+      this.updateData();
+    }
   }
 
   render() {
@@ -43,7 +58,7 @@ export default class VexDB extends React.Component<VexDBProps, {}> {
         <List
           size={"default"}
           dataSource={this.state.data}
-          loading={this.state.loading}
+          // loading={this.state.loading}
           bordered={true}
           pagination={{
             position: "both",
