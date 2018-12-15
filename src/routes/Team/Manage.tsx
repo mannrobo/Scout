@@ -12,7 +12,8 @@ import {
   Form
 } from "antd";
 import * as copy from "copy-to-clipboard";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
 
 export default class TeamManage extends React.Component<any> {
   state = {

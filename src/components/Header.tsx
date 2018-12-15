@@ -1,7 +1,9 @@
 import { Layout, Menu, Icon } from "antd";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore";
 
 window["firebase"] = firebase;
 

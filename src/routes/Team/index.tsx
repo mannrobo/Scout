@@ -2,7 +2,8 @@ import * as React from "react";
 import { Menu, Icon, Affix } from "antd";
 import { Route, Link } from "react-router-dom";
 import TeamPage from "./Team";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
 // import EventData from "./Data";
 // import EventNotes from "./Notes";

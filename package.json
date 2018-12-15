@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "@types/vexdb": "^1.7.0",
+    "ant-design-pro": "^2.1.1",
     "antd": "^3.10.9",
+    "copy-to-clipboard": "^3.0.8",
     "firebase": "^5.6.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -13,8 +15,8 @@
     "react-router-dom": "^4.3.1",
     "react-router-ga": "^1.0.0",
     "react-scripts-ts": "3.1.0",
-    "vexdb": "^2.0.3",
-    "copy-to-clipboard": "^3.0.8"
+    "source-map-explorer": "^1.6.0",
+    "vexdb": "^2.0.3"
   },
   "scripts": {
     "dev": "react-scripts-ts start",

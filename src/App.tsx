@@ -2,7 +2,7 @@ import { Layout, Spin, Icon } from "antd";
 import * as React from "react";
 import "./App.css";
 import Header from "./components/Header";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
 
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Switch } from "react-router";

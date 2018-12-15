@@ -2,7 +2,8 @@ import * as React from "react";
 // import VexDB from "src/components/VexDB";
 import { Spin, List, Avatar } from "antd";
 import { Link } from "react-router-dom";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
 
 export default class TeamPage extends React.Component<any, any> {
   state = {

@@ -1,5 +1,6 @@
 import * as React from "react";
-import * as firebase from "firebase";
+import * as firebase from "firebase/app";
+import "firebase/firestore";
 import { Spin, Select, Button, Affix, Input, List, Avatar } from "antd";
 import { Link } from "react-router-dom";
 import FourOhFour from "src/components/FourOhFour";
