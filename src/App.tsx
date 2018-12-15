@@ -1,6 +1,5 @@
 import { Layout, Spin, Icon } from "antd";
 import * as React from "react";
-import "./App.css";
 import Header from "./components/Header";
 import * as firebase from "firebase/app";
 
