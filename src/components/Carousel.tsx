@@ -5,11 +5,8 @@ export default (props: { images: string[] } & any) => (
   <Carousel {...props}>
     {props.images.map((img: string) => (
       <div>
-        <img src={img} />
+        <img src={img} style={{ width: "100%" }} />
       </div>
     ))}
-    <div style={{ width: "100%" }}>
-      <h1>+</h1>
-    </div>
   </Carousel>
 );
