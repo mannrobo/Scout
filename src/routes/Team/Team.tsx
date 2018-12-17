@@ -1,9 +1,10 @@
 import * as React from "react";
 // import VexDB from "src/components/VexDB";
-import { Spin, List, Avatar } from "antd";
+import { Spin, List, Avatar, Col, Row } from "antd";
 import { Link } from "react-router-dom";
 import * as firebase from "firebase/app";
 import "firebase/firestore";
+import Carousel from "src/components/Carousel";
 
 export default class TeamPage extends React.Component<any, any> {
   state = {
@@ -92,6 +93,22 @@ export default class TeamPage extends React.Component<any, any> {
               </Link>
             )}
           />
+        </div>
+        <div>
+          <strong style={{ marginBottom: 16 }}>Pictures &amp; Notes</strong>
+          <Row>
+            <Col md={24} lg={8}>
+              <Carousel
+                style={{ width: "100%" }}
+                autoplay
+                images={[
+                  "https://picsum.photos/300/200",
+                  "https://picsum.photos/300/200?image=454"
+                ]}
+              />
+            </Col>
+            <Col md={24} lg={16} />
+          </Row>
         </div>
       </div>
     );
