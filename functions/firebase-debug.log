@@ -1,0 +1,14 @@
+[debug] [2018-12-17T23:28:18.929Z] ----------------------------------------------------------------------
+[debug] [2018-12-17T23:28:18.931Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only functions
+[debug] [2018-12-17T23:28:18.932Z] CLI Version:   6.1.1
+[debug] [2018-12-17T23:28:18.932Z] Platform:      darwin
+[debug] [2018-12-17T23:28:18.932Z] Node Version:  v10.13.0
+[debug] [2018-12-17T23:28:18.933Z] Time:          Mon Dec 17 2018 18:28:18 GMT-0500 (Eastern Standard Time)
+[debug] [2018-12-17T23:28:18.933Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-12-17T23:28:19.083Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-12-17T23:28:19.084Z] > authorizing via signed-in user
+[debug] [2018-12-17T23:28:19.084Z] [iam] checking project mannrobo-scout for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2018-12-17T23:28:19.086Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/mannrobo-scout:testIamPermissions  
+
+[debug] [2018-12-17T23:28:19.393Z] <<< HTTP RESPONSE 200

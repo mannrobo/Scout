@@ -16,4 +16,6 @@ const newUserProcedure = functions.auth.user().onCreate(user => {
     });
 });
 exports.newUserProcedure = newUserProcedure;
+var api_1 = require("./api");
+exports.api = api_1.default;
 //# sourceMappingURL=index.js.map

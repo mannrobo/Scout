@@ -18,3 +18,4 @@ const newUserProcedure = functions.auth.user().onCreate(user => {
 });
 
 export { newUserProcedure };
+export { default as api } from "./api";
