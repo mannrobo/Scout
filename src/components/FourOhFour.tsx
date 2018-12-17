@@ -1,6 +1,8 @@
 import * as React from "react";
 import Exception from "ant-design-pro/lib/Exception";
 
+import "ant-design-pro/lib/Exception/style/index.less"
+
 export default ({ title, desc }: { title?: string; desc?: string }) => (
   <Exception
     type="404"
